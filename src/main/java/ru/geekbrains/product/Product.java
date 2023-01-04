@@ -1,6 +1,12 @@
 package ru.geekbrains.product;
 
+import org.h2.engine.User;
+import org.hibernate.Session;
+import ru.geekbrains.client.Client;
+
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -15,6 +21,22 @@ public class Product {
 
     @Column(name = "cost")
     private int cost;
+
+    @ManyToMany
+    @JoinTable(
+            name = "products_clients",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id")
+    )
+    private List<Client> clients;
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
 
     public Long getId() {
         return id;
@@ -42,6 +64,17 @@ public class Product {
 
     public Product() {
     }
+
+    /*public List<Client> findClientByProductId(Long id) {
+        try (Session session = sessionFactoryUtils.getSession()) {
+            session.beginTransaction();
+            //List<Client> clients = null;
+            Product product = session.get(Product.class, id);
+            List<Client> clients = session.createQuery("select c from Products c join fetch clients where c.id = :id");
+            session.getTransaction().commit();
+            return clients;
+        }
+    }*/
 
     @Override
     public String toString() {

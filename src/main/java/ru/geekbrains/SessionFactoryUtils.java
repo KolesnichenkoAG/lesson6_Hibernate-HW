@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class SessionFactoryUtils {
     private SessionFactory factory;
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("ru.geekbrains");
+    //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("ru.geekbrains");
 
     public void init() {
         factory = new Configuration()
